@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,19 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            // 'user_id' => User::factory()->create(),
+            'title' => fake()->realText(100),
+            'description' => fake()->realText(200),
+
+            'status' => fake()->randomElement([
+                'pending',
+                'open',
+                'completed',
+                'cancelled',
+                'delayed',
+            ]),
+
+            'deadline' => fake()->dateTimeBetween('tomorrow', '+1 month')
         ];
     }
 }
