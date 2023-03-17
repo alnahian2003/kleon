@@ -37,7 +37,6 @@ class UserFactory extends Factory
             'username' => 'alnahian2003',
             'email' => 'nahian@admin.com',
             'is_admin' => true,
-            'is_active' => true,
             'company_name' => 'ZovoTeam',
             'address' => 'Mirpur 1, Dhaka, Bangladesh'
         ]);

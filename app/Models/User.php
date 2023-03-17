@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -30,6 +32,16 @@ class User extends Authenticatable
         'is_admin' => 'boolean',
         'is_active' => 'boolean',
     ];
+
+    /* Query Scopes */
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+
+    /* Eloquent Relationships */
 
     // A client can have many projects
     public function projects()
