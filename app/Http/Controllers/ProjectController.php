@@ -13,7 +13,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::with('tasks', 'client')->latest()->paginate();
+
+        return $projects;
     }
 
     /**

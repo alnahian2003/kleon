@@ -17,9 +17,10 @@ class ProjectFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->realText(100);
         return [
-            // 'user_id' => User::factory()->create(),
-            'title' => fake()->realText(100),
+            'title' => $title,
+            'slug' => str()->slug($title),
             'description' => fake()->realText(200),
 
             'status' => fake()->randomElement([

@@ -24,6 +24,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
 
             $table->string('title');
+            $table->string('slug')->unique();
             $table->string('comment')->nullable();
             $table->timestamps();
             $table->softDeletes();

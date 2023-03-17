@@ -8,12 +8,22 @@ use App\Http\Requests\UpdateTaskRequest;
 
 class TaskController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Task::class);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        // Return all tasks with relations for admin.
+        $tasks = auth()->user()->is_admin ?
+            Task::with('project')->latest()->paginate()
+            :
+            auth()->user()->tasks()->with('project')->latest()->paginate();
+
+        return $tasks;
     }
 
     /**
@@ -29,7 +39,13 @@ class TaskController extends Controller
      */
     public function store(StoreTaskRequest $request)
     {
-        //
+        try {
+            $this->user()->tasks->create($request->validated());
+        } catch (\Throwable $th) {
+            return back()->withErrors($request);
+        } finally {
+            return to_route('tasks.index');
+        }
     }
 
     /**
@@ -37,7 +53,7 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        //
+        return $task;
     }
 
     /**
@@ -53,7 +69,8 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        //
+        $task->updateOrFail($request->validated());
+        return to_route('tasks.index');
     }
 
     /**
@@ -61,6 +78,7 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        //
+        $task->deleteOrFail();
+        return to_route('tasks.index');
     }
 }

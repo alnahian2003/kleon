@@ -25,7 +25,8 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-            'address' => fake()->address()
+            'address' => fake()->address(),
+            'is_active' => fake()->randomElement([true, false]),
         ];
     }
 
@@ -36,6 +37,7 @@ class UserFactory extends Factory
             'username' => 'alnahian2003',
             'email' => 'nahian@admin.com',
             'is_admin' => true,
+            'is_active' => true,
             'company_name' => 'ZovoTeam',
             'address' => 'Mirpur 1, Dhaka, Bangladesh'
         ]);

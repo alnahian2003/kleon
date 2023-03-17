@@ -47,7 +47,7 @@
             </ResponsiveNavLink>
           </li>
 
-          <li class="relative px-6 py-3">
+          <!-- <li class="relative px-6 py-3">
             <ResponsiveNavLink :href="route('about')" :active="route().current('about')">
               <template #icon>
                 <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round"
@@ -58,7 +58,7 @@
               </template>
               About us
             </ResponsiveNavLink>
-          </li>
+          </li> -->
 
         <li class="relative px-6 py-3">
           <button @click="showingTwoLevelMenu = !showingTwoLevelMenu"

@@ -11,7 +11,7 @@ class StoreTaskRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return (auth()->check() || auth()->user()->is_admin);
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|max:255',
+            'comment' => 'nullable|max:255',
+            'project_id' => 'nullable|integer|exists:projects,id'
         ];
     }
 }
