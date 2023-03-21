@@ -1,11 +1,11 @@
 <?php
 
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\TaskController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +27,8 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     // Route::get('/about', fn () => Inertia::render('About'))->name('about');
 
-    Route::resource('tasks', TaskController::class);
     Route::resource('projects', ProjectController::class);
+    Route::resource('tasks', TaskController::class);
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
 

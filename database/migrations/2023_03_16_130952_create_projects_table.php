@@ -23,11 +23,6 @@ return new class extends Migration
 
             $table->string('status')
                 ->default('pending');
-            // Open - 1,
-            // On Progress - 2,
-            // Completed - 3,
-            // Cancelled - 4
-            // Delayed - 5
 
             $table->date('deadline');
 

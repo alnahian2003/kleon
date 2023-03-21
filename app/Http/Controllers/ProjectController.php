@@ -8,6 +8,10 @@ use App\Http\Requests\UpdateProjectRequest;
 
 class ProjectController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Project::class);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -31,7 +35,13 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        try {
+            auth()->user()->create($request->validated());
+        } catch (\Throwable $th) {
+            return back()->withErrors($request);
+        } finally {
+            return to_route('projects.index');
+        }
     }
 
     /**
@@ -39,7 +49,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return $project;
     }
 
     /**
@@ -55,7 +65,9 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $project->updateOrFail($request->validated());
+
+        return to_route('projects.show', $project);
     }
 
     /**
@@ -63,6 +75,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->deleteOrFail();
+        return to_route('projects.index');
     }
 }
