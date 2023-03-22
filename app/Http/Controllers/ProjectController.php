@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ProjectStatus;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
@@ -17,9 +19,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with('tasks', 'client')->latest()->paginate();
+        $projects = auth()->user()->is_admin ? Project::with('tasks', 'client')->latest()->paginate(10) : auth()->user()->projects()->latest()->paginate(10);
 
-        return $projects;
+        return Inertia::render('Projects/Index', ['projects' => $projects]);
     }
 
     /**
@@ -27,7 +29,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render("Projects/Create");
     }
 
     /**
@@ -36,7 +38,7 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         try {
-            auth()->user()->create($request->validated());
+            auth()->user()->projects()->create($request->validated());
         } catch (\Throwable $th) {
             return back()->withErrors($request);
         } finally {
@@ -57,7 +59,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return Inertia::render('Projects/Edit', ['project' => $project, 'statuses' => ProjectStatus::cases()]);
     }
 
     /**
@@ -67,7 +69,7 @@ class ProjectController extends Controller
     {
         $project->updateOrFail($request->validated());
 
-        return to_route('projects.show', $project);
+        return to_route('projects.index');
     }
 
     /**

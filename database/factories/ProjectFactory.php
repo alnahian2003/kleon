@@ -22,10 +22,10 @@ class ProjectFactory extends Factory
             'title' => $title,
             'slug' => str()->slug($title),
             'description' => fake()->realText(200),
+            'budget'=>fake()->numberBetween(50, 5000),
 
             'status' => fake()->randomElement([
                 'pending',
-                'open',
                 'completed',
                 'cancelled',
                 'delayed',

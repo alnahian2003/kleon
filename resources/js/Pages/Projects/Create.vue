@@ -1,0 +1,98 @@
+<script setup>
+import { Head, useForm } from "@inertiajs/vue3";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import TextInput from "@/Components/TextInput.vue";
+import TextAreaInput from "@/Components/TextAreaInput.vue";
+import InputError from "@/Components/InputError.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+
+const form = useForm({
+    title: null,
+    description: null,
+    budget: null,
+    deadline: null,
+});
+
+function submit() {
+    form.post(route("projects.store", form));
+}
+</script>
+<template>
+    <Head title="Create a Project" />
+    <AuthenticatedLayout>
+        <template #header> Create Project </template>
+
+        <form @submit.prevent="submit">
+            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
+                <div class="space-y-6">
+                    <div>
+                        <InputLabel for="title" value="Title" />
+
+                        <TextInput
+                            id="title"
+                            type="text"
+                            class="mt-1 block w-full"
+                            placeholder="Fix bugs in a WordPress website..."
+                            v-model="form.title"
+                        />
+
+                        <InputError :message="form.errors.title" class="mt-2" />
+                    </div>
+
+                    <div>
+                        <InputLabel for="description" value="Description" />
+
+                        <TextAreaInput
+                            id="description"
+                            type="text"
+                            class="mt-1 block w-full"
+                            :placeholder="form.description"
+                            v-model="form.description"
+                        />
+
+                        <InputError
+                            :message="form.errors.description"
+                            class="mt-2"
+                        />
+                    </div>
+
+                    <div
+                        class="space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-6"
+                    >
+                        <div class="w-full">
+                            <InputLabel for="budget" value="Budget" />
+                            <TextInput
+                                id="budget"
+                                type="number"
+                                class="mt-1 block w-full"
+                                :placeholder="form.budget"
+                                v-model="form.budget"
+                            />
+
+                            <InputError
+                                :message="form.errors.budget"
+                                class="mt-2"
+                            />
+                        </div>
+
+                        <div>
+                            <InputLabel for="deadline" value="Deadline" />
+                            <input
+                                type="date"
+                                class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600"
+                                v-model="form.deadline"
+                                id="deadline"
+                            />
+                            <InputError
+                                :message="form.errors.deadline"
+                                class="mt-2"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <PrimaryButton type="submit" class="mt-6">Create</PrimaryButton>
+            </div>
+        </form>
+    </AuthenticatedLayout>
+</template>

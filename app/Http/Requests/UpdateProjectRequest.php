@@ -26,8 +26,20 @@ class UpdateProjectRequest extends FormRequest
         return [
             "title" => ["required", "max:255"],
             "description" => ["required"],
+            "budget" => ["required", "numeric", "min:5"],
             "status" => ["required", new Enum(ProjectStatus::class)],
             "deadline" => ["required", "date", "after:now"],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'title.required' => 'Provide a title for the project.',
+            'description.required' => 'You must provide a description about the project.',
+            'budget.numeric' => 'Provide a valid number.',
+            'budget.min' => 'Minimum budget is $5.',
+            'deadline.after' => 'Deadline must be a future date.'
         ];
     }
 }

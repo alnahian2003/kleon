@@ -18,6 +18,7 @@ class Project extends Model
         'title',
         'slug',
         'description',
+        'budget',
         'status',
         'deadline'
     ];
@@ -68,6 +69,13 @@ class Project extends Model
     {
         return Attribute::make(
             get: fn (string $value) => Carbon::parse($value)->format('m/d/Y'),
+        );
+    }
+
+    public function budget(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => number_format($value),
         );
     }
 
