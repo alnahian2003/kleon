@@ -1,18 +1,17 @@
 <template>
-  <Head title="Dashboard"/>
+    <Head title="Dashboard" />
 
-  <AuthenticatedLayout>
-    <template #header>
-      Dashboard
-    </template>
+    <AuthenticatedLayout>
+        <template #header> Dashboard </template>
 
-    <div class="p-4 bg-white rounded-lg shadow-xs">
-      You're logged in!
-    </div>
-  </AuthenticatedLayout>
+        <StatCards />
+
+        <!-- <div class="p-4 bg-white rounded-lg shadow-xs">You're logged in!</div> -->
+    </AuthenticatedLayout>
 </template>
 
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import { Head } from "@inertiajs/vue3";
+import StatCards from "@/Components/StatCards.vue";
 </script>
