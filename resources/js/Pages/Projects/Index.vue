@@ -37,6 +37,7 @@ const props = defineProps({
                             <th class="px-4 py-3">Title</th>
                             <th class="px-4 py-3">Budget</th>
                             <th class="px-4 py-3">Status</th>
+                            <th class="px-4 py-3 text-center">Tasks</th>
                             <th class="px-4 py-3">Created (M/D/Y)</th>
                             <th class="px-4 py-3 text-center">Actions</th>
                         </tr>
@@ -73,6 +74,11 @@ const props = defineProps({
                                     {{ project.status }}
                                 </span>
                             </td>
+
+                            <td class="px-4 py-3 text-sm text-center">
+                                {{ project.tasks_count }}
+                            </td>
+                            
                             <td class="px-4 py-3 text-sm">
                                 {{ project.created_at }}
                             </td>
