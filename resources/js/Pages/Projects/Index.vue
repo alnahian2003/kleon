@@ -78,7 +78,7 @@ const props = defineProps({
                             <td class="px-4 py-3 text-sm text-center">
                                 {{ project.tasks_count }}
                             </td>
-                            
+
                             <td class="px-4 py-3 text-sm">
                                 {{ project.created_at }}
                             </td>
@@ -118,7 +118,6 @@ const props = defineProps({
 
                                     <!-- Edit Button -->
                                     <Link
-                                        v-if="this.$attrs.auth.user.is_admin"
                                         :href="
                                             route('projects.edit', project.slug)
                                         "
@@ -140,7 +139,6 @@ const props = defineProps({
 
                                     <!-- Delete button -->
                                     <button
-                                        v-if="this.$attrs.auth.user.is_admin"
                                         class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Delete"
                                         @click="
@@ -179,8 +177,8 @@ const props = defineProps({
         </h4>
 
         <div
-            v-if="projects.data.length > projects.per_page"
-            class="py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 border-t sm:grid-cols-9"
+            v-if="projects.per_page"
+            class="py-3 mx-auto text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 sm:grid-cols-9"
         >
             <pagination :links="projects.links" />
         </div>

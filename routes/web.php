@@ -30,7 +30,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::resource('tasks', TaskController::class);
 
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
+    Route::get('users', [UserController::class, 'index'])
+        ->middleware('is_admin')
+        ->name('users.index');
+    Route::get('clients', [UserController::class, 'clients'])
+        ->middleware('is_admin')
+        ->name('users.clients');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
