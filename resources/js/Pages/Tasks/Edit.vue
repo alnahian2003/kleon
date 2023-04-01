@@ -1,28 +1,37 @@
 <script setup>
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, Link } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import TextAreaInput from "@/Components/TextAreaInput.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 
-const { projects } = defineProps({ projects: Object });
+const { task, projects } = defineProps({ task: Object, projects: Object });
 
 const form = useForm({
-    title: null,
-    comment: null,
-    project_id: null,
+    title: task.title,
+    comment: task.comment,
+    project_id: task.project_id,
 });
 
 function submit() {
-    form.post(route("tasks.store", form));
+    form.put(route("tasks.update", task.slug), form);
 }
 </script>
 <template>
     <Head title="Create a Task" />
     <AuthenticatedLayout>
-        <template #header> Create Task </template>
+        <template #header>
+            <div class="flex justify-between items-center">
+                Edit Task
+
+                <Link :href="route('tasks.index')"
+                    ><SecondaryButton>Browse Tasks</SecondaryButton></Link
+                >
+            </div>
+        </template>
 
         <form @submit.prevent="submit">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -71,6 +80,7 @@ function submit() {
                             <option
                                 v-for="project in projects"
                                 :value="project.id"
+                                :selected="project.id === task.project_id"
                             >
                                 {{ project.title }}
                             </option>
@@ -82,7 +92,7 @@ function submit() {
                         />
                     </div>
                 </div>
-                <PrimaryButton type="submit" class="mt-6">Create</PrimaryButton>
+                <PrimaryButton type="submit" class="mt-6">Edit</PrimaryButton>
             </div>
         </form>
     </AuthenticatedLayout>

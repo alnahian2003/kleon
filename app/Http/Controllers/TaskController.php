@@ -59,26 +59,34 @@ class TaskController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Task $task)
-    {
-        return $task;
-    }
+    // /**
+    //  * Display the specified resource.
+    //  */
+    // public function show(Task $task)
+    // {
+    //     return $task;
+    // }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Task $task)
     {
-        //
+        $projects = Project::select('title', 'id')
+            ->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id))
+            ->latest()
+            ->get();
+
+        return Inertia::render("Tasks/Edit", [
+            "task" => $task,
+            "projects" => $projects,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTaskRequest $request, Task $task)
+    public function update(StoreTaskRequest $request, Task $task)
     {
         $task->updateOrFail($request->validated());
         return to_route('tasks.index');
