@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\Project;
 use Inertia\Inertia;
 
 class TaskController extends Controller
@@ -34,7 +35,14 @@ class TaskController extends Controller
      */
     public function create()
     {
-        //
+        $projects = Project::select('title', 'id')
+            ->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id))
+            ->latest()
+            ->get();
+
+        return Inertia::render("Tasks/Create", [
+            "projects" => $projects
+        ]);
     }
 
     /**
@@ -43,7 +51,7 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request)
     {
         try {
-            $this->user()->tasks->create($request->validated());
+            auth()->user()->tasks()->create($request->validated());
         } catch (\Throwable $th) {
             return back()->withErrors($request);
         } finally {

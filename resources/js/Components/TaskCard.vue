@@ -14,7 +14,7 @@ const { task } = defineProps({
                 v-if="task.project"
                 :href="route('projects.show', task.project.slug)"
                 href="/"
-                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
+                class="flex items-center justify-between px-1 py-1 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                 aria-label="Edit"
                 as="button"
             >
@@ -37,7 +37,7 @@ const { task } = defineProps({
             <!-- Edit Button -->
             <Link
                 :href="route('tasks.edit', task.slug)"
-                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
+                class="flex items-center justify-between px-1 py-1 text-sm font-medium leading-5 text-purple-600 rounded-lg focus:outline-none focus:shadow-outline-gray"
                 aria-label="Edit"
                 as="button"
             >
@@ -55,7 +55,7 @@ const { task } = defineProps({
 
             <!-- Delete button -->
             <button
-                class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                class="flex items-center justify-between px-1 py-1 text-sm font-medium leading-5 rounded-lg text-gray-400 focus:outline-none focus:shadow-outline-gray"
                 aria-label="Delete"
                 @click="router.delete(route('tasks.destroy', task.slug))"
             >
@@ -73,6 +73,7 @@ const { task } = defineProps({
                 </svg>
             </button>
         </div>
+
         <header>
             <p class="text-gray-400 text-sm">
                 {{ task.created_at }}
@@ -83,7 +84,7 @@ const { task } = defineProps({
         </header>
 
         <footer
-            class="text-sm text-gray-400 italic flex flex-row flex-shrink-0 items-center gap-2"
+            class="text-sm text-gray-400 italic flex flex-row flex-shrink-0 items-start gap-2"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

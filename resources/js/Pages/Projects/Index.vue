@@ -179,7 +179,7 @@ const props = defineProps({
         </h4>
 
         <div
-            v-if="projects.data.length > 0"
+            v-if="projects.data.length > projects.per_page"
             class="py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 border-t sm:grid-cols-9"
         >
             <pagination :links="projects.links" />

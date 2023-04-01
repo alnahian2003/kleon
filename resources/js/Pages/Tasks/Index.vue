@@ -24,12 +24,12 @@ const { tasks } = defineProps({
         </template>
 
         <!-- Task Gallery -->
-        <section class="grid lg:grid-cols-3 xl:grid-cols-4 gap-2">
+        <section class="grid lg:grid-cols-3 gap-2">
             <TaskCard v-for="task in tasks.data" :task="task" />
         </section>
 
         <div
-            v-if="tasks.data.length > 0"
+            v-if="tasks.links.length > tasks.per_page"
             class="py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 border-t sm:grid-cols-9"
         >
             <Pagination :links="tasks.links" />
