@@ -18,12 +18,12 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
-        $title = fake()->realText(100);
+        $title = fake()->realText(60);
         return [
             'project_id' => fake()->randomElement([Project::inRandomOrder()->first(), null]),
             'title' => $title,
             'slug' => str()->slug($title),
-            'comment' => fake()->realText(),
+            'comment' => fake()->realText(40),
         ];
     }
 }

@@ -6,7 +6,7 @@
 
         <StatCards />
 
-        <!-- <div class="p-4 bg-white rounded-lg shadow-xs">You're logged in!</div> -->
+        <!-- <div class="p-4 bg-white rounded-lg shadow">You're logged in!</div> -->
     </AuthenticatedLayout>
 </template>
 

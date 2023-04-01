@@ -23,10 +23,7 @@ const cardTypeClass = {
 
 <template>
     <div class="flex items-center p-4 bg-white rounded-lg shadow-xs border">
-        <div
-            class="p-3 mr-4 rounded-full"
-            :class="cardTypeClass"
-        >
+        <div class="p-3 mr-4 rounded-full" :class="cardTypeClass">
             <slot name="icon">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path
