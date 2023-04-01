@@ -37,7 +37,7 @@ const props = defineProps({
                             <th class="px-4 py-3">Title</th>
                             <th class="px-4 py-3">Budget</th>
                             <th class="px-4 py-3">Status</th>
-                            <th class="px-4 py-3">Deadline (M/D/Y)</th>
+                            <th class="px-4 py-3">Created (M/D/Y)</th>
                             <th class="px-4 py-3 text-center">Actions</th>
                         </tr>
                     </thead>
@@ -74,11 +74,11 @@ const props = defineProps({
                                 </span>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{ project.deadline }}
+                                {{ project.created_at }}
                             </td>
                             <td class="px-4 py-3">
                                 <div
-                                    class="flex items-center space-x-4 text-sm justify-center"
+                                    class="flex items-center text-sm justify-center"
                                 >
                                     <!-- View Project Button -->
                                     <Link
@@ -112,6 +112,7 @@ const props = defineProps({
 
                                     <!-- Edit Button -->
                                     <Link
+                                        v-if="this.$attrs.auth.user.is_admin"
                                         :href="
                                             route('projects.edit', project.slug)
                                         "
@@ -133,7 +134,8 @@ const props = defineProps({
 
                                     <!-- Delete button -->
                                     <button
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                        v-if="this.$attrs.auth.user.is_admin"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Delete"
                                         @click="
                                             router.delete(

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use Inertia\Inertia;
 
 class TaskController extends Controller
 {
@@ -18,12 +19,14 @@ class TaskController extends Controller
     public function index()
     {
         // Return all tasks with relations for admin.
-        $tasks = auth()->user()->is_admin ?
-            Task::with('project')->latest()->paginate()
-            :
-            auth()->user()->tasks()->with('project')->latest()->paginate();
+        $tasks =
+            Task::with('project')
+            ->when(!auth()->user()->is_admin, fn ($query) => $query->where("user_id", auth()->user()->id))
+            ->latest()->paginate();
 
-        return $tasks;
+        return Inertia::render("Tasks/Index", [
+            "tasks" => $tasks
+        ]);
     }
 
     /**

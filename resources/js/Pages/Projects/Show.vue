@@ -1,8 +1,7 @@
 <script setup>
-import PrimaryButton from "@/Components/PrimaryButton.vue";
+import SecondaryButton from "@/Components/SecondaryButton.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link } from "@inertiajs/vue3";
-import { computed } from "vue";
 
 const { project } = defineProps({
     project: Object,
@@ -15,14 +14,14 @@ const { project } = defineProps({
     <AuthenticatedLayout>
         <template #header>
             <Link :href="route('projects.index')"
-                ><PrimaryButton>Go Back</PrimaryButton></Link
+                ><SecondaryButton>Browse Projects</SecondaryButton></Link
             >
         </template>
 
-        <div class="p-4 bg-white rounded-lg shadow">
+        <div class="p-4 bg-white rounded-lg shadow mb-8">
             <!-- Status Indicator -->
             <span
-                class="px-2 py-1 font-semibold leading-tight rounded-full capitalize text-center text-sm"
+                class="px-2 py-1 font-medium leading-tight rounded-full capitalize text-center text-sm"
                 :class="{
                     'text-green-700 bg-green-100':
                         project.status === 'completed',
@@ -71,13 +70,15 @@ const { project } = defineProps({
                             <p class="text-sm text-gray-400">Deadline:</p>
                         </span>
 
-                        <p class="font-semibold text-slate-500">
+                        <p class="font-medium text-slate-500">
                             {{ project.deadline }}
                         </p>
                     </div>
                 </header>
             </article>
         </div>
+
+        <hr />
 
         <!-- Tasks -->
         <section class="my-8">
@@ -94,7 +95,7 @@ const { project } = defineProps({
                         <p class="text-gray-400 text-sm">
                             {{ task.created_at }}
                         </p>
-                        <h4 class="font-semibold text-gray-600">
+                        <h4 class="font-medium text-gray-600">
                             {{ task.title }}
                         </h4>
                     </header>

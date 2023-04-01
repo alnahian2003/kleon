@@ -19,7 +19,11 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = auth()->user()->is_admin ? Project::with('tasks', 'client')->latest()->paginate(10) : auth()->user()->projects()->latest()->paginate(10);
+        $projects = Project::with('tasks', 'client')
+            ->withCount('tasks')
+            ->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id))
+            ->latest()
+            ->paginate(10);
 
         return Inertia::render('Projects/Index', ['projects' => $projects]);
     }
