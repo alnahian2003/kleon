@@ -4,7 +4,6 @@
     <AuthenticatedLayout>
         <template #header> Users </template>
 
-        <div class="p-4 bg-white rounded-lg shadow">
             <div class="overflow-hidden mb-8 w-full rounded-lg border shadow">
                 <div class="overflow-x-auto w-full">
                     <table class="w-full whitespace-no-wrap">
@@ -38,7 +37,6 @@
                     <pagination :links="users.links" />
                 </div>
             </div>
-        </div>
     </AuthenticatedLayout>
 </template>
 
