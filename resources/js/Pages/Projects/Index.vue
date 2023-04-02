@@ -24,7 +24,6 @@ const { projects } = defineProps({
         </template>
 
         <SearchForm
-            v-if="projects.data.length > 0"
             :url="route('projects.index')"
             placeholder="Search projects by title, status..."
         />

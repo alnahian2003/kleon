@@ -5,7 +5,6 @@
         <template #header> Users </template>
 
         <SearchForm
-            v-if="users.data.length > 0"
             :url="route('users.index')"
             placeholder="Search users by name, email..."
         />

@@ -16,7 +16,6 @@ const props = defineProps({
         <template #header> Clients </template>
 
         <SearchForm
-            v-if="clients.data.length > 0"
             :url="route('users.clients')"
             placeholder="Search users by name, email..."
         />

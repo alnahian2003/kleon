@@ -25,7 +25,6 @@ const { tasks } = defineProps({
         </template>
 
         <SearchForm
-            v-if="tasks.data.length > 0"
             :url="route('tasks.index')"
             placeholder="Search tasks by title, comment..."
         />
