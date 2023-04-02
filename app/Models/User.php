@@ -34,10 +34,14 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /* Query Scopes */
-
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);
+    }
+
+    public function scopeAdmin(Builder $query): Builder
+    {
+        return $query->where('is_admin', true);
     }
 
     public function scopeFilter(Builder $query, array $filters)
