@@ -38,7 +38,7 @@ const { tasks } = defineProps({
 
             <div
                 v-if="tasks.per_page"
-                class="py-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 sm:grid-cols-9 mx-auto"
+                class="my-3 text-xs font-semibold tracking-wide text-gray-500 uppercase bg-gray-50 sm:grid-cols-9 mx-auto"
             >
                 <Pagination :links="tasks.links" />
             </div>

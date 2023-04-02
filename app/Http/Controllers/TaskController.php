@@ -24,7 +24,7 @@ class TaskController extends Controller
             Task::filter(request()->only('search'))
             ->with('project')
             ->when(!auth()->user()->is_admin, fn ($query) => $query->where("user_id", auth()->user()->id))
-            ->latest()->paginate();
+            ->latest()->paginate(9);
 
         return Inertia::render("Tasks/Index", [
             "tasks" => $tasks
