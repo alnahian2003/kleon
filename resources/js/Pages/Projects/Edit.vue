@@ -6,18 +6,29 @@ import TextInput from "@/Components/TextInput.vue";
 import TextAreaInput from "@/Components/TextAreaInput.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import { computed } from "vue";
 
 const { project, statuses } = defineProps({
     project: Object,
     statuses: Array,
 });
 
+const formattedDeadline = () => {
+    return project.deadline
+        ? new Date(project.deadline).toISOString().slice(0, 10)
+        : "";
+};
+
+const formattedBudget = () => {
+    return project.budget ? parseInt(project.budget.replace(",", "")) : "";
+};
+
 const form = useForm({
     title: project.title,
     description: project.description,
-    budget: project.budget,
+    budget: formattedBudget(),
     status: project.status,
-    deadline: project.deadline,
+    deadline: formattedDeadline(),
 });
 
 function submit() {
