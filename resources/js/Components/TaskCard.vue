@@ -84,6 +84,7 @@ const { task } = defineProps({
         </header>
 
         <footer
+            v-if="task.comment"
             class="text-sm text-gray-400 italic flex flex-row flex-shrink-0 items-start gap-2"
         >
             <svg
