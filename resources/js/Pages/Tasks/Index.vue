@@ -25,6 +25,7 @@ const { tasks } = defineProps({
         </template>
 
         <SearchForm
+            v-if="tasks.data.length > 0"
             :url="route('tasks.index')"
             placeholder="Search tasks by title, comment..."
         />
@@ -45,7 +46,10 @@ const { tasks } = defineProps({
 
         <h4 class="text-gray-400" v-else>
             No tasks To Show Yet. Why Don't You
-            <Link class="text-purple-600" :href="route('tasks.create')">Create</Link> One?
+            <Link class="text-purple-600" :href="route('tasks.create')"
+                >Create</Link
+            >
+            One?
         </h4>
     </AuthenticatedLayout>
 </template>

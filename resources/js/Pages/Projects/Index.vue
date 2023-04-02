@@ -1,12 +1,11 @@
 <script setup>
 import { Head, Link, router } from "@inertiajs/vue3";
-
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
 import SearchForm from "@/Shared/SearchForm.vue";
 
-const props = defineProps({
+const { projects } = defineProps({
     projects: Object,
 });
 </script>
@@ -25,6 +24,7 @@ const props = defineProps({
         </template>
 
         <SearchForm
+            v-if="projects.data.length > 0"
             :url="route('projects.index')"
             placeholder="Search projects by title, status..."
         />
