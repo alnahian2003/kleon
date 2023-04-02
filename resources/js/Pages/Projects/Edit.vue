@@ -6,7 +6,6 @@ import TextInput from "@/Components/TextInput.vue";
 import TextAreaInput from "@/Components/TextAreaInput.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import { computed } from "vue";
 
 const { project, statuses } = defineProps({
     project: Object,
