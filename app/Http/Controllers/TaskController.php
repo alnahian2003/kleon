@@ -21,7 +21,8 @@ class TaskController extends Controller
     {
         // Return all tasks with relations for admin.
         $tasks =
-            Task::with('project')
+            Task::filter(request()->only('search'))
+            ->with('project')
             ->when(!auth()->user()->is_admin, fn ($query) => $query->where("user_id", auth()->user()->id))
             ->latest()->paginate();
 

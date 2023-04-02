@@ -4,6 +4,7 @@ import { Head, Link, router } from "@inertiajs/vue3";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Pagination from "@/Components/Pagination.vue";
+import SearchForm from "@/Shared/SearchForm.vue";
 
 const props = defineProps({
     projects: Object,
@@ -22,6 +23,11 @@ const props = defineProps({
                 >
             </div>
         </template>
+
+        <SearchForm
+            :url="route('projects.index')"
+            placeholder="Search projects by title, status..."
+        />
 
         <!-- Table -->
         <div
@@ -139,7 +145,7 @@ const props = defineProps({
 
                                     <!-- Delete button -->
                                     <button
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 rounded-lg text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Delete"
                                         @click="
                                             router.delete(
@@ -173,7 +179,10 @@ const props = defineProps({
 
         <h4 class="text-gray-400" v-else>
             No Projects To Show Yet. Why Don't You
-            <Link :href="route('projects.create')">Create</Link> One?
+            <Link class="text-purple-600" :href="route('projects.create')"
+                >Create</Link
+            >
+            One?
         </h4>
 
         <div

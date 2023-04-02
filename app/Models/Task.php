@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -72,5 +73,14 @@ class Task extends Model
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    /* Query Scopes */
+    public function scopeFilter(Builder $query, array $filters)
+    {
+        return $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where('title', 'like', "%$search%")
+                ->orWhere('comment', 'like', "%$search%");
+        });
     }
 }

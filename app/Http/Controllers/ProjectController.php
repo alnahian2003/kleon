@@ -19,7 +19,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with('tasks', 'client')
+        $projects = Project::filter(request()->only('search'))
+            ->with('tasks', 'client')
             ->withCount('tasks')
             ->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id))
             ->latest()

@@ -40,6 +40,16 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('is_active', true);
     }
 
+    public function scopeFilter(Builder $query, array $filters)
+    {
+        return $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->where('name', 'like', "%$search%")
+                ->orWhere('email', 'like', "%$search%")
+                ->orWhere('address', 'like', "%$search%")
+                ->orWhere('company', 'like', "%$search%");
+        });
+    }
+
 
     /* Eloquent Relationships */
 
