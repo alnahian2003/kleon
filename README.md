@@ -1,66 +1,169 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<!-- Preview Image -->
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Listing of Projects
+![Preview](projects-preview.png)
 
-## About Laravel
+# Preview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Listing of Tasks
+![Preview](tasks-preview.png)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Listing of Clients
+![Preview](clients-preview.png)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Edit Task Page
+![Preview](edit-task-preview.png)
 
-## Learning Laravel
+Explore this project for more!
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+# Kleon — Freelancer CRM
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Kleon is a Laravel, Vue and InertiaJS powered Freelancer CRM. Here's my submission for [**Laravel Daily**](https://github.com/LaravelDaily/)'s [_Laravel Learning Roadmap_](https://github.com/LaravelDaily/Laravel-Roadmap-Learning-Path#advanced-beginner-level) Upper Beginner level challenge.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Features
 
-## Laravel Sponsors
+-   Login/Register as client, create and manage projects and tasks
+-   Blazing fast experience, SPA like speed.
+-   Free to use forever!
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Installation
 
-### Premium Partners
+Please check the [Laravel Official Documentation](https://laravel.com/docs/master/installation) installation guide for server requirements before you start.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+First, clone this repo
 
-## Contributing
+```bash
+git clone https://github.com/alnahian2003/kleon.git
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Switch to the repo folder
 
-## Code of Conduct
+```bash
+cd kleon
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Install all the dependencies using composer and npm
 
-## Security Vulnerabilities
+```bash
+composer install
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+npm install
+```
 
-## License
+Copy the `.env.example` file and make the required configuration changes in the .env file
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+cp .env.example .env
+```
+
+Generate a new application key
+
+```bash
+php artisan key:generate
+```
+
+Create an SQLite database. You can also use another database (MySQL, Postgres), simply update your configuration accordingly.
+
+```bash
+touch database/database.sqlite
+```
+
+Run the database migrations (Set the database connection in .env before migrating)
+
+```bash
+php artisan migrate
+```
+
+Start the local development server
+
+```bash
+php artisan serve
+```
+
+Start Vite for bundling the assets or Hot Module Reload (required)
+
+```bash
+npm run dev
+```
+
+**You can now access the server at http://localhost:8000.**
+
+### TL;DR
+
+All the command list
+
+```bash
+git clone repoLink
+```
+
+```bash
+cd repoName
+```
+
+```bash
+composer install
+```
+
+```bash
+npm install
+```
+
+```bash
+cp .env.example .env
+```
+
+```bash
+php artisan key:generate
+```
+
+```bash
+touch database/database.sqlite
+```
+
+```bash
+php artisan migrate
+```
+
+```bash
+php artisan serve
+```
+
+```bash
+npm run dev
+```
+
+## Database Seeding
+
+Populate the database with seed data that includes relationships. This can help you to quickly get started and explore inside out of this project.
+
+Run the database seeder, and this will do it!
+
+```bash
+php artisan db:seed
+```
+
+Note : It's recommended to have a clean database before seeding. You can refresh your migrations at any point to clean the database by running the following command
+
+```bash
+php artisan migrate:refresh
+```
+
+## Tech Stack
+
+**Client Side:** TailwindCSS, Vue
+
+**Server Side:** Laravel
+
+**Adapter:** Inertia
+
+**Database:** Sqlite 3, MySql
+
+## Note
+
+notes
+
+## Support
+
+For support, [contact me](https://alnahian2003.github.io#contact) or pull an issue. Feel free to submit PR. Cheers 🥂

@@ -33,10 +33,10 @@ const cardTypeClass = {
             </slot>
         </div>
         <div>
-            <p class="mb-2 text-sm font-medium text-gray-600">
+            <p class="text-sm font-medium text-gray-500">
                 {{ title }}
             </p>
-            <p class="text-lg font-semibold text-gray-700">
+            <p class="text-2xl font-medium text-gray-700">
                 {{ stat }}
             </p>
         </div>
