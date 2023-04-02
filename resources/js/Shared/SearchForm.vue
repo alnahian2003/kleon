@@ -35,10 +35,10 @@ watch(
 
 <template>
     <!-- Search -->
-    <form @submit.prevent="search" class="mb-4 justify-end flex gap-2">
+    <form @submit.prevent="search" class="mb-4 justify-start flex gap-2">
         <TextInput
             v-model="form.search"
-            type="text"
+            type="search"
             :placeholder="props.placeholder"
             class="w-full md:max-w-xs"
         ></TextInput>
