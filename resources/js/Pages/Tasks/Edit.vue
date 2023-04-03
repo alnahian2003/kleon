@@ -21,7 +21,7 @@ function submit() {
 }
 </script>
 <template>
-    <Head title="Create a Task" />
+    <Head title="Edit a Task" />
     <AuthenticatedLayout>
         <template #header>
             <div class="flex justify-between items-center">
