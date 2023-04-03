@@ -6,6 +6,7 @@ use App\Enums\ProjectStatus;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\User;
 use Inertia\Inertia;
 
 class ProjectController extends Controller
@@ -34,7 +35,14 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return Inertia::render("Projects/Create");
+        $clients = auth()->user()->is_admin ? User::select(['name', 'id'])
+            ->where('is_admin', false)
+            ->has('projects')
+            ->latest()
+            ->get()
+            : collect();
+
+        return Inertia::render("Projects/Create", ["clients" => $clients]);
     }
 
     /**
@@ -43,7 +51,12 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         try {
-            auth()->user()->projects()->create($request->validated());
+            /* If an admin creates a custom project, store it as if the assigned user created it.*/
+            $user = auth()->user();
+            if ($request->validated()['user_id']) {
+                $user = User::findOrFail($request->validated()['user_id']);
+            }
+            $user->projects()->create($request->validated());
         } catch (\Throwable $th) {
             return back()->withErrors($request);
         } finally {

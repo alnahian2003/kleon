@@ -28,6 +28,7 @@ class StoreProjectRequest extends FormRequest
             "description" => ["required"],
             "budget" => ["numeric", "min:5"],
             "deadline" => ["required", "date", "after:now"],
+            "user_id" => ["nullable", "exists:users,id"]
         ];
     }
 

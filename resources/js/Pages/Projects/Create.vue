@@ -1,17 +1,27 @@
 <script setup>
-import { Head, useForm } from "@inertiajs/vue3";
+import { Head, useForm, usePage } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import TextInput from "@/Components/TextInput.vue";
 import TextAreaInput from "@/Components/TextAreaInput.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import { computed } from "vue";
+
+defineProps({ clients: Object });
 
 const form = useForm({
     title: null,
     description: null,
     budget: null,
     deadline: null,
+    user_id: null,
+});
+
+const { auth } = usePage().props;
+
+const isAdmin = computed(() => {
+    return auth.user.is_admin;
 });
 
 function submit() {
@@ -59,14 +69,18 @@ function submit() {
 
                     <div
                         class="space-y-6 md:space-y-0 md:grid md:grid-cols-2 md:gap-6"
+                        :class="{
+                            'md:grid-cols-3': isAdmin,
+                        }"
                     >
                         <div class="w-full">
-                            <InputLabel for="budget" value="Budget" />
+                            <InputLabel for="budget" value="Budget ($)" />
                             <TextInput
                                 id="budget"
                                 type="number"
+                                min="5"
                                 class="mt-1 block w-full"
-                                :placeholder="form.budget"
+                                placeholder="100"
                                 v-model="form.budget"
                             />
 
@@ -86,6 +100,28 @@ function submit() {
                             />
                             <InputError
                                 :message="form.errors.deadline"
+                                class="mt-2"
+                            />
+                        </div>
+
+                        <div v-if="isAdmin">
+                            <InputLabel for="project" value="For Client (Optional):" />
+                            <select
+                                id="project"
+                                v-model="form.user_id"
+                                class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-primary-300 focus:ring focus:ring-primary-200 focus:ring-opacity-50 focus-within:text-primary-600 capitalize"
+                            >
+                            <option value="null" disabled>Select a Client</option>
+                                <option
+                                    v-for="client in clients"
+                                    :value="client.id"
+                                >
+                                    {{ client.name }}
+                                </option>
+                            </select>
+
+                            <InputError
+                                :message="form.errors.user_id"
                                 class="mt-2"
                             />
                         </div>
