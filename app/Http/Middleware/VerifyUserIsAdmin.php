@@ -18,6 +18,7 @@ class VerifyUserIsAdmin
         if (auth()->check() && auth()->user()->is_admin) {
             return $next($request);
         }
+
         return redirect()->route('login');
     }
 }

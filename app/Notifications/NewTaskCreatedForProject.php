@@ -36,8 +36,8 @@ class NewTaskCreatedForProject extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("A New Task Has Been Assigned!")
-            ->markdown('mail.task.created', ["task" => $this->task]);
+            ->subject('A New Task Has Been Assigned!')
+            ->markdown('mail.task.created', ['task' => $this->task]);
     }
 
     public function shouldSend(object $notifiable, string $channel): bool

@@ -31,7 +31,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $observers = [
         Project::class => [ProjectObserver::class],
-        Task::class => [TaskObserver::class]
+        Task::class => [TaskObserver::class],
     ];
 
     /**

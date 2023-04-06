@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,6 +19,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'username',
         'password',
+        'address',
+        'company_name',
     ];
 
     protected $hidden = [
@@ -53,7 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
                 ->orWhere('company', 'like', "%$search%");
         });
     }
-
 
     /* Eloquent Relationships */
 

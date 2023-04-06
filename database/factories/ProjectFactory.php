@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,11 +17,12 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         $title = fake()->realText(100);
+
         return [
             'title' => $title,
             'slug' => str()->slug($title),
             'description' => fake()->realText(200),
-            'budget'=>fake()->numberBetween(50, 5000),
+            'budget' => fake()->numberBetween(50, 5000),
 
             'status' => fake()->randomElement([
                 'pending',
@@ -31,7 +31,7 @@ class ProjectFactory extends Factory
                 'delayed',
             ]),
 
-            'deadline' => fake()->dateTimeBetween('tomorrow', '+1 month')
+            'deadline' => fake()->dateTimeBetween('tomorrow', '+1 month'),
         ];
     }
 }

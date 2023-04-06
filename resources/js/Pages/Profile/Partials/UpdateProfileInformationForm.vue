@@ -1,9 +1,9 @@
 <script setup>
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import InputError from "@/Components/InputError.vue";
+import InputLabel from "@/Components/InputLabel.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
+import TextInput from "@/Components/TextInput.vue";
+import { Link, useForm, usePage } from "@inertiajs/vue3";
 
 const props = defineProps({
     mustVerifyEmail: Boolean,
@@ -15,20 +15,27 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    address: user.address,
+    company_name: user.company_name,
 });
 </script>
 
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
+            <h2 class="text-lg font-medium text-gray-900">
+                Profile Information
+            </h2>
 
             <p class="mt-1 text-sm text-gray-600">
                 Update your account's profile information and email address.
             </p>
         </header>
 
-        <form @submit.prevent="form.patch(route('profile.update'))" class="mt-6 space-y-6">
+        <form
+            @submit.prevent="form.patch(route('profile.update'))"
+            class="mt-6 space-y-6"
+        >
             <div>
                 <InputLabel for="name" value="Name" />
 
@@ -60,7 +67,9 @@ const form = useForm({
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <div v-if="props.mustVerifyEmail && user.email_verified_at === null">
+            <div
+                v-if="props.mustVerifyEmail && user.email_verified_at === null"
+            >
                 <p class="text-sm mt-2 text-gray-800">
                     Your email address is unverified.
                     <Link
@@ -81,11 +90,58 @@ const form = useForm({
                 </div>
             </div>
 
+            <hr />
+            <article>
+                <header>
+                    <p class="text-sm text-gray-600">
+                        Update your business information and address.
+                    </p>
+                </header>
+                <div class="mt-6">
+                    <InputLabel for="company_name" value="Company" />
+
+                    <TextInput
+                        id="company_name"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.company_name"
+                        placeholder="221B Baker Street"
+                        autocomplete="company_name"
+                    />
+
+                    <InputError class="mt-2" :message="form.errors.company_name" />
+                </div>
+
+                <div class="mt-6">
+                    <InputLabel for="address" value="Address" />
+
+                    <TextInput
+                        id="address"
+                        type="text"
+                        class="mt-1 block w-full"
+                        v-model="form.address"
+                        placeholder="221B Baker Street"
+                        autocomplete="address"
+                    />
+
+                    <InputError class="mt-2" :message="form.errors.address" />
+                </div>
+            </article>
+
             <div class="flex items-center gap-4">
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
 
-                <Transition enter-from-class="opacity-0" leave-to-class="opacity-0" class="transition ease-in-out">
-                    <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
+                <Transition
+                    enter-from-class="opacity-0"
+                    leave-to-class="opacity-0"
+                    class="transition ease-in-out"
+                >
+                    <p
+                        v-if="form.recentlySuccessful"
+                        class="text-sm text-gray-600"
+                    >
+                        Saved.
+                    </p>
                 </Transition>
             </div>
         </form>

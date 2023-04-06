@@ -11,7 +11,7 @@ class UpdateTaskRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return (auth()->check() || auth()->user()->is_admin);;
+        return auth()->check() || auth()->user()->is_admin;
     }
 
     /**

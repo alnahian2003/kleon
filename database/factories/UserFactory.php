@@ -18,6 +18,7 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $name = fake()->unique()->name();
+
         return [
             'name' => $name,
             'username' => str($name)->slug(),
@@ -39,7 +40,7 @@ class UserFactory extends Factory
             'email' => 'nahian@admin.com',
             'is_admin' => true,
             'company_name' => 'ZovoTeam',
-            'address' => 'Mirpur 1, Dhaka, Bangladesh'
+            'address' => 'Mirpur 1, Dhaka, Bangladesh',
         ]);
     }
 }

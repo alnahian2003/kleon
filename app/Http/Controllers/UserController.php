@@ -10,8 +10,9 @@ class UserController extends Controller
     public function index()
     {
         return Inertia::render('Users/Index', [
-            'users' => User::filter(request()->only('search'))
-                ->paginate()
+            'users' => User::select(['name', 'email'])
+                ->filter(request()->only('search'))
+                ->paginate(),
         ]);
     }
 
@@ -26,7 +27,7 @@ class UserController extends Controller
             ->paginate();
 
         return Inertia::render('Clients/Index', [
-            'clients' => $clients
+            'clients' => $clients,
         ]);
     }
 }

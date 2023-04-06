@@ -4,11 +4,11 @@ namespace App\Models;
 
 use App\Enums\ProjectStatus;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 class Project extends Model
 {
@@ -21,7 +21,7 @@ class Project extends Model
         'description',
         'budget',
         'status',
-        'deadline'
+        'deadline',
     ];
 
     protected $casts = [
@@ -47,7 +47,7 @@ class Project extends Model
     // Change the route model binding key name for the 'slug' column.
     public function getRouteKeyName(): string
     {
-        return "slug";
+        return 'slug';
     }
 
     /* Accessors & Mutators */
@@ -80,7 +80,6 @@ class Project extends Model
         );
     }
 
-
     /* Eloquent Relationships */
 
     // A project must belong to a client.
@@ -96,6 +95,11 @@ class Project extends Model
     }
 
     /* Query Scopes */
+    public function scopeUserProjects(Builder $projectQuery)
+    {
+        return $projectQuery->when(! auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id));
+    }
+
     public function scopeFilter(Builder $query, array $filters)
     {
         return $query->when($filters['search'] ?? null, function ($query, $search) {

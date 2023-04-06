@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Task extends Model
 {
@@ -17,7 +17,7 @@ class Task extends Model
         'project_id',
         'title',
         'slug',
-        'comment'
+        'comment',
     ];
 
     /**
@@ -27,12 +27,30 @@ class Task extends Model
     protected static function booted(): void
     {
         static::creating(function (Task $task) {
-            return $task->slug = str($task->title)->slug();
+            return $task->slug = $task->generateSlug($task->title);
         });
 
         static::updating(function (Task $task) {
-            return $task->slug = str($task->title)->slug();
+            return $task->slug = $task->generateSlug($task->title);
         });
+    }
+
+    protected function generateSlug($title)
+    {
+        $slug = str()->slug($title);
+        $query = Task::where('slug', $slug);
+        $count = $query->count();
+
+        if ($count > 0) {
+            // Generate a unique slug
+            $i = 1;
+            while (Task::where('slug', $slug . '-' . $i)->count() > 0) {
+                $i++;
+            }
+            $slug = $slug . '-' . $i;
+        }
+
+        return $slug;
     }
 
     /**
@@ -40,7 +58,7 @@ class Task extends Model
      */
     public function getRouteKeyName(): string
     {
-        return "slug";
+        return 'slug';
     }
 
     /* Accessors & Mutators */
@@ -59,7 +77,7 @@ class Task extends Model
         );
     }
 
-    /** 
+    /**
      * A task must belong to a user
      */
     public function user()
@@ -76,6 +94,11 @@ class Task extends Model
     }
 
     /* Query Scopes */
+    public function scopeUserTasks(Builder $taskQuery)
+    {
+        return $taskQuery->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id));
+    }
+
     public function scopeFilter(Builder $query, array $filters)
     {
         return $query->when($filters['search'] ?? null, function ($query, $search) {

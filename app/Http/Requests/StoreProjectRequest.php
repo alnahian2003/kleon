@@ -2,8 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Enums\ProjectStatus;
-use Illuminate\Validation\Rules\Enum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProjectRequest extends FormRequest
@@ -24,11 +22,11 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => ["required", "max:255"],
-            "description" => ["required"],
-            "budget" => ["numeric", "min:5"],
-            "deadline" => ["required", "date", "after:now"],
-            "user_id" => ["nullable", "exists:users,id"]
+            'title' => ['required', 'max:255'],
+            'description' => ['required'],
+            'budget' => ['numeric', 'min:5'],
+            'deadline' => ['required', 'date', 'after:now'],
+            'user_id' => ['nullable', 'exists:users,id'],
         ];
     }
 
@@ -39,7 +37,7 @@ class StoreProjectRequest extends FormRequest
             'description.required' => 'You must provide a description about the project.',
             'budget.numeric' => 'Provide a valid number.',
             'budget.min' => 'Minimum budget is $5.',
-            'deadline.after' => 'Deadline must be a future date.'
+            'deadline.after' => 'Deadline must be a future date.',
         ];
     }
 }

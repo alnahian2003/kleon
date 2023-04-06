@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Enums\ProjectStatus;
-use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Models\Project;
 use App\Models\User;
 use Inertia\Inertia;
 
@@ -15,15 +15,16 @@ class ProjectController extends Controller
     {
         $this->authorizeResource(Project::class);
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $projects = Project::filter(request()->only('search'))
-            ->with('tasks', 'client')
+        $projects = Project::userProjects()
+            ->filter(request()->only('search'))
+            ->with('tasks')
             ->withCount('tasks')
-            ->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id))
             ->latest()
             ->paginate(10);
 
@@ -42,7 +43,7 @@ class ProjectController extends Controller
             ->get()
             : collect();
 
-        return Inertia::render("Projects/Create", ["clients" => $clients]);
+        return Inertia::render('Projects/Create', ['clients' => $clients]);
     }
 
     /**
@@ -50,18 +51,13 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        try {
-            /* If an admin creates a custom project, store it as if the assigned user created it.*/
-            $user = auth()->user();
-            if ($request->validated()['user_id']) {
-                $user = User::findOrFail($request->validated()['user_id']);
-            }
-            $user->projects()->create($request->validated());
-        } catch (\Throwable $th) {
-            return back()->withErrors($request);
-        } finally {
-            return to_route('projects.index');
+        $user = auth()->user();
+        if ($request->validated()['user_id']) {
+            $user = User::findOrFail($request->validated()['user_id']);
         }
+        $user->projects()->create($request->validated());
+
+        return redirect()->route('projects.index');
     }
 
     /**
@@ -73,10 +69,10 @@ class ProjectController extends Controller
             'client' => function ($query) {
                 $query->select('id', 'name');
             },
-            'tasks'
+            'tasks',
         ]);
 
-        return Inertia::render("Projects/Show", compact('project'));
+        return Inertia::render('Projects/Show', compact('project'));
     }
 
     /**
@@ -103,6 +99,7 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->deleteOrFail();
+
         return to_route('projects.index');
     }
 }

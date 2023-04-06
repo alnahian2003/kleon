@@ -3,8 +3,8 @@
 namespace App\Http\Requests;
 
 use App\Enums\ProjectStatus;
-use Illuminate\Validation\Rules\Enum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class UpdateProjectRequest extends FormRequest
 {
@@ -24,11 +24,11 @@ class UpdateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title" => ["required", "max:255"],
-            "description" => ["required"],
-            "budget" => ["required", "numeric", "min:5"],
-            "status" => ["required", new Enum(ProjectStatus::class)],
-            "deadline" => ["required", "date", "after:now"],
+            'title' => ['required', 'max:255'],
+            'description' => ['required'],
+            'budget' => ['required', 'numeric', 'min:5'],
+            'status' => ['required', new Enum(ProjectStatus::class)],
+            'deadline' => ['required', 'date', 'after:now'],
         ];
     }
 
@@ -39,7 +39,7 @@ class UpdateProjectRequest extends FormRequest
             'description.required' => 'You must provide a description about the project.',
             'budget.numeric' => 'Provide a valid number.',
             'budget.min' => 'Minimum budget is $5.',
-            'deadline.after' => 'Deadline must be a future date.'
+            'deadline.after' => 'Deadline must be a future date.',
         ];
     }
 }
