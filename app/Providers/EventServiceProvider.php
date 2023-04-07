@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Events\ProjectStatusUpdated;
+use App\Listeners\NotifyAdminOnProjectStatusChange;
 use App\Models\Project;
 use App\Models\Task;
 use App\Observers\ProjectObserver;
@@ -21,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        ProjectStatusUpdated::class => [
+            NotifyAdminOnProjectStatusChange::class,
         ],
     ];
 
