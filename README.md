@@ -6,10 +6,13 @@ Kleon is a Laravel, Vue and InertiaJS powered Freelancer CRM. Here's my submissi
   <summary>Screenshots</summary>
 
 Listing of Projects
+![Dashboard](dashboard-preview.png)
+
+Listing of Projects
 ![Projects](projects-preview.png)
 
 Create Project Page
-![Projects](create-project-preview.png)
+![Create Project](create-project-preview.png)
 
 Listing of Tasks
 ![Tasks](tasks-preview.png)
