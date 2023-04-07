@@ -97,7 +97,7 @@ class Project extends Model
     /* Query Scopes */
     public function scopeUserProjects(Builder $projectQuery)
     {
-        return $projectQuery->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id));
+        return $projectQuery->when(! auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id));
     }
 
     public function scopeFilter(Builder $query, array $filters): Builder
