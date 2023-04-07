@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTaskRequest;
-use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Models\Task;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TaskController extends Controller
@@ -36,7 +34,7 @@ class TaskController extends Controller
             ->tasks()
             ->create($request->validated());
 
-        return response()->json(["data" => new TaskResource($task)], Response::HTTP_CREATED);
+        return response()->json(['data' => new TaskResource($task)], Response::HTTP_CREATED);
     }
 
     /**

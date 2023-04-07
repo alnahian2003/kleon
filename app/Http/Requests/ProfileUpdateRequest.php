@@ -15,7 +15,7 @@ class ProfileUpdateRequest extends FormRequest
             'email' => ['required', 'email', 'string', 'max:255', Rule::unique('users')->ignore(Auth::user())],
             'password' => ['nullable', 'string', 'confirmed', 'min:8'],
             'address' => ['nullable', 'string', 'max:255'],
-            'company_name' => ['nullable', 'string', 'max:255']
+            'company_name' => ['nullable', 'string', 'max:255'],
         ];
     }
 

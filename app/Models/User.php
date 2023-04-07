@@ -40,9 +40,20 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('is_active', true);
     }
 
+    public function scopeInactive(Builder $query): Builder
+    {
+        return $query->where('is_active', false);
+    }
+
     public function scopeAdmin(Builder $query): Builder
     {
         return $query->where('is_admin', true);
+    }
+
+    public function scopeClients(Builder $query): Builder
+    {
+        return $query->where('is_admin', false)
+            ->has('projects');
     }
 
     public function scopeFilter(Builder $query, array $filters)

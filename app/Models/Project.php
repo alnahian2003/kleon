@@ -97,15 +97,39 @@ class Project extends Model
     /* Query Scopes */
     public function scopeUserProjects(Builder $projectQuery)
     {
-        return $projectQuery->when(! auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id));
+        return $projectQuery->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id));
     }
 
-    public function scopeFilter(Builder $query, array $filters)
+    public function scopeFilter(Builder $query, array $filters): Builder
     {
         return $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where('title', 'like', "%$search%")
                 ->orWhere('budget', 'like', "%$search%")
                 ->orWhere('status', 'like', "%$search%");
         });
+    }
+
+    public function scopePendingProjects(Builder $query): Builder
+    {
+        return $query->userProjects()
+            ->whereStatus(ProjectStatus::Pending);
+    }
+
+    public function scopeCompletedProjects(Builder $query): Builder
+    {
+        return $query->userProjects()
+            ->whereStatus(ProjectStatus::Completed);
+    }
+
+    public function scopeCancelledProjects(Builder $query): Builder
+    {
+        return $query->userProjects()
+            ->whereStatus(ProjectStatus::Cancelled);
+    }
+
+    public function scopeDelayedProjects(Builder $query): Builder
+    {
+        return $query->userProjects()
+            ->whereStatus(ProjectStatus::Delayed);
     }
 }

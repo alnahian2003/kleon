@@ -4,7 +4,7 @@ const { stat, title, type } = defineProps({
         type: String,
     },
     stat: {
-        type: String,
+        type: Number,
     },
     type: {
         type: String,
@@ -18,6 +18,8 @@ const cardTypeClass = {
     "text-red-500 bg-red-100": type === "danger",
     "text-orange-500 bg-orange-100": type === "warning",
     "text-blue-500 bg-blue-100": type === "info",
+    "text-gray-500 bg-gray-100": type === "dark",
+    "text-purple-500 bg-purple-100": type === "brand",
 };
 </script>
 

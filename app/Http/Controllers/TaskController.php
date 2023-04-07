@@ -36,7 +36,7 @@ class TaskController extends Controller
     public function create()
     {
         $projects = Project::select('title', 'id')
-            ->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id))
+            ->when(! auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id))
             ->latest()
             ->get();
 
@@ -70,7 +70,7 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         $projects = Project::select('title', 'id')
-            ->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id))
+            ->when(! auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id))
             ->latest()
             ->get();
 

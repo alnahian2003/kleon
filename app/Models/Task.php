@@ -44,10 +44,10 @@ class Task extends Model
         if ($count > 0) {
             // Generate a unique slug
             $i = 1;
-            while (Task::where('slug', $slug . '-' . $i)->count() > 0) {
+            while (Task::where('slug', $slug.'-'.$i)->count() > 0) {
                 $i++;
             }
-            $slug = $slug . '-' . $i;
+            $slug = $slug.'-'.$i;
         }
 
         return $slug;
@@ -96,7 +96,7 @@ class Task extends Model
     /* Query Scopes */
     public function scopeUserTasks(Builder $taskQuery)
     {
-        return $taskQuery->when(!auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id));
+        return $taskQuery->when(! auth()->user()->is_admin, fn ($query) => $query->where('user_id', auth()->user()->id));
     }
 
     public function scopeFilter(Builder $query, array $filters)

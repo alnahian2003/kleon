@@ -18,10 +18,9 @@ class UserController extends Controller
 
     public function clients()
     {
-        $clients = User::select(['name', 'company_name', 'address', 'is_active'])
+        $clients = User::clients()
+            ->select(['name', 'company_name', 'address', 'is_active'])
             ->filter(request()->only('search'))
-            ->where('is_admin', false)
-            ->has('projects')
             ->withCount('projects')
             ->latest()
             ->paginate();

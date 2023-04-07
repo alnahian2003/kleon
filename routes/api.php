@@ -23,10 +23,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('v1')->group(function () {
-        Route::apiResources([
-            'projects' => ProjectController::class,
-            'tasks' => TaskController::class,
-        ]);
+        Route::apiResources(
+            [
+                'projects' => ProjectController::class,
+                'tasks' => TaskController::class,
+            ],
+            ['as' => 'api']
+        );
 
         Route::get('users', [UserController::class, 'index']);
         Route::get('clients', [UserController::class, 'clients']);
